@@ -59,7 +59,7 @@ button{
 <!-- LOGIN -->
 <div class="card" id="loginBox">
   <div class="header">
-    <img src="https://www.chrisfritze.com/uploads/9/4/8/1/94817372/lcr-logo_orig.jpg">
+    <img src="https://th.bing.com/th/id/R.644c5e4755e06e580d08028ac71fd66f?rik=s5y%2b2sm0G3gxrA&riu=http%3a%2f%2fwww.chrisfritze.com%2fuploads%2f9%2f4%2f8%2f1%2f94817372%2flcr-logo_orig.jpg&ehk=oSunJQyAVlLmLmsDF2DCEBlJUkeJxg8qGCiCp6PKiPs%3d&risl=&pid=ImgRaw&r=0">
     <h1>LCR Login</h1>
   </div>
 
@@ -117,7 +117,10 @@ button{
 </div>
 
 <script>
-/* LOGIN */
+/* ================= CONFIG ================= */
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzUfUCNxnNiryi7D2ITazJGRRzeEgPee3XlLMQZ6Gi-P9igLisNWigjnvHWQaOTGg/exec";
+
+/* ================= LOGIN ================= */
 function login(){
   if(user.value==="admin" && pass.value==="1234"){
     loginBox.classList.add("hidden");
@@ -126,6 +129,91 @@ function login(){
     loginMsg.innerText="Invalid login";
   }
 }
+
+/* ================= PRICE TABLE ================= */
+const priceTable = [
+  {from:"VTE",to:"VV",type:"全",price:210000},
+  {from:"VTE",to:"LPB",type:"全",price:399000},
+  {from:"VTE",to:"MX",type:"全",price:561000},
+  {from:"VTE",to:"BT",type:"全",price:669000},
+
+  {from:"VTE",to:"VV",type:"孩",price:111000},
+  {from:"VTE",to:"LPB",type:"孩",price:207000},
+  {from:"VTE",to:"MX",type:"孩",price:288000},
+  {from:"VTE",to:"BT",type:"孩",price:342000},
+
+  {from:"VV",to:"VTE",type:"全",price:210000},
+  {from:"LPB",to:"VTE",type:"全",price:399000},
+  {from:"MX",to:"VTE",type:"全",price:561000},
+  {from:"BT",to:"VTE",type:"全",price:669000},
+
+  {from:"VV",to:"VTE",type:"孩",price:111000},
+  {from:"LPB",to:"VTE",type:"孩",price:207000},
+  {from:"MX",to:"VTE",type:"孩",price:288000},
+  {from:"BT",to:"VTE",type:"孩",price:342000},
+
+  {from:"VV",to:"LPB",type:"全",price:201000},
+  {from:"VV",to:"MX",type:"全",price:363000},
+  {from:"VV",to:"BT",type:"全",price:471000},
+  
+
+  {from:"VV",to:"LPB",type:"孩",price:108000},
+  {from:"VV",to:"MX",type:"孩",price:186000},
+  {from:"VV",to:"BT",type:"孩",price:243000},
+  
+  {from:"LPB",to:"VV",type:"全",price:201000},
+  {from:"MX",to:"VV",type:"全",price:363000},
+  {from:"BT",to:"VV",type:"全",price:471000},
+  
+
+  {from:"LPB",to:"VV",type:"孩",price:108000},
+  {from:"MX",to:"VV",type:"孩",price:186000},
+  {from:"BT",to:"VV",type:"孩",price:243000},
+
+  {from:"LPB",to:"MX",type:"全",price:174000},
+  {from:"LPB",to:"BT",type:"全",price:282000},
+  
+  {from:"LPB",to:"MX",type:"孩",price:93000},
+  {from:"LPB",to:"BT",type:"孩",price:147000},
+  
+  {from:"MX",to:"LPB",type:"全",price:174000},
+  {from:"BT",to:"LPB",type:"全",price:282000},
+  
+  {from:"MX",to:"LPB",type:"孩",price:93000},
+  {from:"BT",to:"LPB",type:"孩",price:147000},
+
+  {from:"MX",to:"BT",type:"全",price:120000},
+
+  {from:"MX",to:"BT",type:"孩",price:66000},
+
+  {from:"BT",to:"MX",type:"全",price:120000},
+
+  {from:"BT",to:"MX",type:"孩",price:66000}
+
+];
+
+function updatePrice(){
+  const r=priceTable.find(x =>
+    x.from===from.value &&
+    x.to===to.value &&
+    x.type===passenger.value
+  );
+  if(!r){price.value="";total.value="";return;}
+  price.value=r.price.toLocaleString();
+  total.value=(r.price*quantity.value).toLocaleString();
+}
+
+function saveData(){
+  alert("Saved (demo)");
+  quantity.value=1;
+  price.value="";
+  total.value="";
+}
+</script>
+
+</body>
+</html>
+
   <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzUfUCNxnNiryi7D2ITazJGRRzeEgPee3XlLMQZ6Gi-P9igLisNWigjnvHWQaOTGg/exec";
 
