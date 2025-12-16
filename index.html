@@ -163,8 +163,37 @@ button:active{transform:scale(.98)}
  </div>
   </div>
 <script>
-/* ================= CONFIG ================= */
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_syJOD2o_tBmTK7kwgGGTirF8P6IXtNkJrliYz4x32UKCzXZ-jNvScA-9EvUxj7Ofhw/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzCNHMpdn2PyY0AJLtnvTp_Nj8t14Z7gFBWuacuAq7V/dev";
+
+async function saveData() {
+  const payload = {
+    id: document.getElementById("id").value,
+    passengerType: document.getElementById("passenger").value,
+    from: document.getElementById("from").value,
+    to: document.getElementById("to").value,
+    quantity: Number(document.getElementById("quantity").value),
+    price: Number(document.getElementById("price").value.replace(/,/g, "")),
+    total: Number(document.getElementById("total").value.replace(/,/g, ""))
+  };
+
+  const res = await fetch(WEB_APP_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" }, // ✅ REQUIRED
+    body: JSON.stringify(payload)
+  });
+
+  const result = await res.json();
+
+  if (result.status === "success") {
+    alert("Saved successfully");
+    document.getElementById("quantity").value = 1;
+    document.getElementById("price").value = "";
+    document.getElementById("total").value = "";
+  } else {
+    alert("Save failed");
+  }
+}
+</script>
 
 /* ================= LOGIN ================= */
 function login(){
