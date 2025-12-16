@@ -165,36 +165,6 @@ button:active{transform:scale(.98)}
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz0vc-9JGhojJqeRg9ldG240aY1F1D81-Rmx0hASFZXkVBoNKziEDxznDwCnBSuoZOabw/exec";
 
-async function saveData() {
-  const payload = {
-    id: document.getElementById("id").value,
-    passengerType: document.getElementById("passenger").value,
-    from: document.getElementById("from").value,
-    to: document.getElementById("to").value,
-    quantity: Number(document.getElementById("quantity").value),
-    price: Number(document.getElementById("price").value.replace(/,/g, "")),
-    total: Number(document.getElementById("total").value.replace(/,/g, ""))
-  };
-
-  const res = await fetch(WEB_APP_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" }, // ✅ REQUIRED
-    body: JSON.stringify(payload)
-  });
-
-  const result = await res.json();
-
-  if (result.status === "success") {
-    alert("Saved successfully");
-    document.getElementById("quantity").value = 1;
-    document.getElementById("price").value = "";
-    document.getElementById("total").value = "";
-  } else {
-    alert("Save failed");
-  }
-}
-</script>
-
 /* ================= LOGIN ================= */
 function login(){
   if(user.value==="Admin" && pass.value==="1234"){
