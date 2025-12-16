@@ -1,136 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lao–China Railway | LCR System</title>
 
 <style>
-:root {
-  --lcr-red: #c4161c;
-  --bg: #f2f4f8;
-  --card: #ffffff;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --radius: 16px;
+:root{
+  --lcr:#c4161c;
+  --bg:#f2f4f8;
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-  background: var(--bg);
-  color: var(--text);
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  background:var(--bg);
 }
-
-/* ===== APP CONTAINER ===== */
-.app {
-  max-width: 480px;
-  margin: 24px auto;
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 20px 40px rgba(0,0,0,.12);
-  padding: 28px;
+.card{
+  max-width:460px;
+  margin:30px auto;
+  background:#fff;
+  padding:28px;
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
 }
+.header{text-align:center}
+.header img{height:80px}
+.header h1{color:var(--lcr);margin:8px 0 24px}
 
-/* ===== HEADER ===== */
-.header {
-  text-align: center;
-  margin-bottom: 28px;
+label{font-weight:600;margin-top:14px;display:block}
+input,select{
+  width:100%;
+  padding:14px;
+  margin-top:6px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  font-size:16px;
 }
-
-.header img {
-  height: 90px;
-  margin-bottom: 12px;
+input[readonly]{background:#f3f4f6;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{
+  width:100%;
+  margin-top:24px;
+  padding:16px;
+  font-size:18px;
+  font-weight:800;
+  background:var(--lcr);
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
 }
-
-.header h1 {
-  margin: 0;
-  font-size: 22px;
-  color: var(--lcr-red);
-  font-weight: 800;
-  letter-spacing: .3px;
-}
-
-/* ===== FORM ===== */
-label {
-  display: block;
-  margin: 16px 0 6px;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-select, input {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 12px;
-  border: 1px solid #d1d5db;
-  outline: none;
-}
-
-select:focus, input:focus {
-  border-color: var(--lcr-red);
-  box-shadow: 0 0 0 2px rgba(196,22,28,.15);
-}
-
-input[readonly] {
-  background: #f3f4f6;
-  font-weight: 700;
-}
-
-/* ===== GRID ===== */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-/* ===== BUTTON ===== */
-button {
-  margin-top: 26px;
-  width: 100%;
-  padding: 16px;
-  font-size: 18px;
-  font-weight: 800;
-  color: white;
-  background: linear-gradient(135deg,#c4161c,#a81217);
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(.98);
-}
-
-/* ===== FOOTER ===== */
-.footer {
-  margin-top: 18px;
-  text-align: center;
-  font-size: 12px;
-  color: var(--muted);
-}
+.hidden{display:none}
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- LOGIN -->
+<div class="card" id="loginBox">
+  <div class="header">
+    <img src="https://www.chrisfritze.com/uploads/9/4/8/1/94817372/lcr-logo_orig.jpg">
+    <h1>LCR Login</h1>
+  </div>
 
-  <!-- HEADER -->
+  <label>Username</label>
+  <input id="user">
+
+  <label>Password</label>
+  <input id="pass" type="password">
+
+  <button onclick="login()">Login</button>
+  <p id="loginMsg" style="color:red;text-align:center"></p>
+</div>
+
+<!-- APP -->
+<div class="card hidden" id="app">
   <div class="header">
     <img src="https://th.bing.com/th/id/R.644c5e4755e06e580d08028ac71fd66f?rik=s5y%2b2sm0G3gxrA&riu=http%3a%2f%2fwww.chrisfritze.com%2fuploads%2f9%2f4%2f8%2f1%2f94817372%2flcr-logo_orig.jpg&ehk=oSunJQyAVlLmLmsDF2DCEBlJUkeJxg8qGCiCp6PKiPs%3d&risl=&pid=ImgRaw&r=0">
     <h1>Lao–China Railway</h1>
   </div>
 
-  <!-- FORM -->
   <label>ID</label>
-  <select id="id">
-    <option>D87</option>
-    <option>D88</option>
-  </select>
+  <select id="id"><option>D87</option><option>D88</option></select>
 
   <label>Passenger</label>
   <select id="passenger" onchange="updatePrice()">
@@ -138,44 +89,47 @@ button:active {
     <option value="孩">孩 (Child)</option>
   </select>
 
- <label>From:</label>
-<select id="from" onchange="updatePrice()">
-<option>VTE</option>
-<option>VV</option>
-<option>LPB</option>
-<option>MX</option>
-<option>BT</option>
-</select><br><br>
- 
-<label>To:</label>
-<select id="to" onchange="updatePrice()">
-<option>VV</option>
-<option>VTE</option>
-<option>LPB</option>
-<option>MX</option>
-<option>BT</option>
-</select><br><br>
- 
-<label>Quantity:</label>
-<input type="number" id="quantity" value="1" min="1" oninput="updatePrice()"><br><br>
- 
-<label>Price:</label>
-<input type="text" id="price" readonly><br><br>
- 
-<label>Total:</label>
-<input type="text" id="total" readonly><br><br>
- 
-<button onclick="saveData()">Save</button>
-
-  <div class="footer">
-    © Lao–China Railway • Internal System
+  <div class="grid">
+    <div>
+      <label>From</label>
+      <select id="from" onchange="updatePrice()">
+        <option>VTE</option><option>VV</option><option>LPB</option>
+      </select>
+    </div>
+    <div>
+      <label>To</label>
+      <select id="to" onchange="updatePrice()">
+        <option>VV</option><option>VTE</option><option>LPB</option>
+      </select>
+    </div>
   </div>
+
+  <label>Quantity</label>
+  <input type="number" id="quantity" value="1" min="1" oninput="updatePrice()">
+
+  <label>Price</label>
+  <input id="price" readonly>
+
+  <label>Total</label>
+  <input id="total" readonly>
+
+  <button onclick="saveData()">Save</button>
 </div>
 
 <script>
+/* LOGIN */
+function login(){
+  if(user.value==="admin" && pass.value==="1234"){
+    loginBox.classList.add("hidden");
+    app.classList.remove("hidden");
+  } else {
+    loginMsg.innerText="Invalid login";
+  }
+}
+  <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzUfUCNxnNiryi7D2ITazJGRRzeEgPee3XlLMQZ6Gi-P9igLisNWigjnvHWQaOTGg/exec";
 
-/* ===== PRICE TABLE ===== */
+/* PRICE TABLE */
 const priceTable = [
   {from:"VTE",to:"VV",type:"全",price:210000},
   {from:"VTE",to:"LPB",type:"全",price:399000},
@@ -235,43 +189,23 @@ const priceTable = [
 
   {from:"BT",to:"MX",type:"孩",price:66000}
 
-
 ];
 
-
 function updatePrice(){
-  const f = from.value, t = to.value, p = passenger.value;
-  const q = Number(quantity.value || 0);
-
-  const r = priceTable.find(x => x.f===f && x.t===t && x.p===p);
-  if(!r){ price.value=""; total.value=""; return; }
-
-  price.value = r.v.toLocaleString();
-  total.value = (r.v * q).toLocaleString();
+  const f=from.value,t=to.value,p=passenger.value,q=Number(quantity.value);
+  const r=priceTable.find(x=>x.from===f&&x.to===t&&x.type===p);
+  if(!r){price.value="";total.value="";return;}
+  price.value=r.price.toLocaleString();
+  total.value=(r.price*q).toLocaleString();
 }
 
-async function saveData(){
-  await fetch(WEB_APP_URL,{
-    method:"POST",
-    body: JSON.stringify({
-      id:id.value,
-      passengerType:passenger.value,
-      from:from.value,
-      to:to.value,
-      quantity:quantity.value,
-      price:Number(price.value.replace(/,/g,"")),
-      total:Number(total.value.replace(/,/g,""))
-    })
-  });
-
-  quantity.value = 1;
-  price.value = "";
-  total.value = "";
-  alert("Saved");
+function saveData(){
+  alert("Saved (demo)");
+  quantity.value=1;
+  price.value="";
+  total.value="";
 }
 </script>
 
 </body>
 </html>
-
-
