@@ -6,112 +6,51 @@
 <title>Lao–China Railway | LCR System</title>
 
 <style>
-:root {
-  --lcr-red: #c4161c;
-  --bg: #f2f4f8;
-  --card: #ffffff;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --radius: 16px;
+:root{
+  --lcr:#c4161c;
+  --bg:#f2f4f8;
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-  background: var(--bg);
-  color: var(--text);
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  background:var(--bg);
 }
-
-/* ===== APP CONTAINER ===== */
-.app {
-  max-width: 480px;
-  margin: 24px auto;
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 20px 40px rgba(0,0,0,.12);
-  padding: 28px;
+.card{
+  max-width:480px;
+  margin:30px auto;
+  background:#fff;
+  padding:28px;
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
 }
+.header{text-align:center}
+.header img{height:90px}
+.header h1{color:var(--lcr);margin:8px 0 24px}
 
-/* ===== HEADER ===== */
-.header {
-  text-align: center;
-  margin-bottom: 28px;
+label{font-weight:600;margin-top:14px;display:block}
+input,select{
+  width:100%;
+  padding:14px;
+  margin-top:6px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  font-size:16px;
 }
-
-.header img {
-  height: 90px;
-  margin-bottom: 12px;
+input[readonly]{background:#f3f4f6;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{
+  width:100%;
+  margin-top:24px;
+  padding:16px;
+  font-size:18px;
+  font-weight:800;
+  background:var(--lcr);
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
 }
-
-.header h1 {
-  margin: 0;
-  font-size: 22px;
-  color: var(--lcr-red);
-  font-weight: 800;
-  letter-spacing: .3px;
-}
-
-/* ===== FORM ===== */
-label {
-  display: block;
-  margin: 16px 0 6px;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-select, input {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 12px;
-  border: 1px solid #d1d5db;
-  outline: none;
-}
-
-select:focus, input:focus {
-  border-color: var(--lcr-red);
-  box-shadow: 0 0 0 2px rgba(196,22,28,.15);
-}
-
-input[readonly] {
-  background: #f3f4f6;
-  font-weight: 700;
-}
-
-/* ===== GRID ===== */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-/* ===== BUTTON ===== */
-button {
-  margin-top: 26px;
-  width: 100%;
-  padding: 16px;
-  font-size: 18px;
-  font-weight: 800;
-  color: white;
-  background: linear-gradient(135deg,#c4161c,#a81217);
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(.98);
-}
-
-/* ===== FOOTER ===== */
-.footer {
-  margin-top: 18px;
-  text-align: center;
-  font-size: 12px;
-  color: var(--muted);
-}
+.hidden{display:none}
 </style>
 </head>
 
