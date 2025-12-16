@@ -8,6 +8,17 @@
   <title>LCR Project</title>
 
   <style>
+    <div class="login-box" id="loginBox">
+  <h2>Login</h2>
+
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+
+  <p id="loginMsg" style="color:red;"></p>
+</div>
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
       background: #f2f4f8;
@@ -135,7 +146,39 @@
 <button onclick="saveData()">Save</button>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyAn3BkcgPSSQDP7TmikTWrhuLcPBgsiMvk4Fon4FrXwecrR5ndojYc0sEuLKGne4zmug/exec";
+  <script>
+const LOGIN_URL = "https://script.google.com/macros/s/AKfycbzUfUCNxnNiryi7D2ITazJGRRzeEgPee3XlLMQZ6Gi-P9igLisNWigjnvHWQaOTGg/exec";
+
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  fetch(LOGIN_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "login",
+      username,
+      password
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === "success") {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      localStorage.setItem("role", data.role);
+    } else {
+      document.getElementById("loginMsg").innerText = "Login failed";
+    }
+  });
+}
+  <script>
+if (localStorage.getItem("role")) {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("app").style.display = "block";
+}
+</script>
+
 
 const priceTable = [
   {from:"VTE",to:"VV",type:"全",price:210000},
