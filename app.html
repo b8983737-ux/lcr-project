@@ -70,10 +70,21 @@ function login() {
   const user = document.getElementById("username").value;
   const pass = document.getElementById("password").value;
 
+  <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.removeItem("lcr_login");
+  window.location.href = "index.html";
+}
+</script>
+
+
   // ✅ CHANGE THESE
   if (user === "lcr" && pass === "1234") {
     localStorage.setItem("lcr_login", "yes");
     window.location.href = "app.html";
+  
   } else {
     document.getElementById("error").innerText = "Wrong login";
   }
