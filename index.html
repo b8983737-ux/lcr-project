@@ -237,6 +237,29 @@ const priceTable = [
 
 ];
 
+  <script>
+function updatePrice(){
+  const f = fromSelect.value;
+  const t = toSelect.value;
+  const p = passenger.value;
+  const q = Number(quantity.value || 0);
+
+  const r = priceTable.find(
+    x => x.from === f && x.to === t && x.type === p
+  );
+
+  if(!r){
+    price.value = "";
+    total.value = "";
+    return;
+  }
+
+  price.value = r.price.toLocaleString();
+  total.value = (r.price * q).toLocaleString();
+}
+</script>
+
+
 function updatePrice(){
   const r = priceTable.find(x =>
     x.from===from.value &&
