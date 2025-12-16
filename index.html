@@ -133,19 +133,30 @@ button:active{transform:scale(.98)}
   </select>
 
   <div class="grid">
-    <div>
-      <label>From</label>
-      <select id="from" onchange="updatePrice()">
-        <option>VTE</option><option>VV</option><option>LPB</option>
-      </select>
-    </div>
-    <div>
-      <label>To</label>
-      <select id="to" onchange="updatePrice()">
-        <option>VV</option><option>VTE</option><option>LPB</option>
-      </select>
-    </div>
+  <div>
+    <label>From</label>
+    <select id="from" onchange="updatePrice()">
+      <option value="">Select</option>
+      <option value="VTE">VTE</option>
+      <option value="VV">VV</option>
+      <option value="LPB">LPB</option>
+      <option value="MX">MX</option>
+      <option value="BT">BT</option>
+    </select>
   </div>
+
+  <div>
+    <label>To</label>
+    <select id="to" onchange="updatePrice()">
+      <option value="">Select</option>
+      <option value="VTE">VTE</option>
+      <option value="VV">VV</option>
+      <option value="LPB">LPB</option>
+      <option value="MX">MX</option>
+      <option value="BT">BT</option>
+    </select>
+  </div>
+</div>
 
   <label>Quantity</label>
   <input type="number" id="quantity" value="1" min="1" oninput="updatePrice()">
