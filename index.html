@@ -238,9 +238,14 @@ const priceTable = [
 ];
 
  function updatePrice(){
-  const f=from.value,t=to.value,p=passenger.value,q=Number(quantity.value);
+  const f=from.value;
+  const t=to.value;
+  const p=passenger.value;
+  const q=Number(quantity.value);
+
   const r=priceTable.find(x=>x.from===f&&x.to===t&&x.type===p);
   if(!r){price.value="";total.value="";return;}
+
   price.value=r.price.toLocaleString();
   total.value=(r.price*q).toLocaleString();
 }
