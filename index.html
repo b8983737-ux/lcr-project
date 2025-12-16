@@ -1,116 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LCR Project</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lao–China Railway | LCR System</title>
 
 <style>
+:root {
+  --lcr-red: #c4161c;
+  --bg: #f2f4f8;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
 body {
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-  background: #f2f4f8;
-  padding: 20px;
+  background: var(--bg);
+  color: var(--text);
 }
 
-/* ===== LOGIN ===== */
-.login-box {
-  max-width: 420px;
-  margin: 60px auto;
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.15);
-}
-
-.login-box h2 {
-  text-align: center;
-  color: #c4161c;
-}
-
-.login-box input {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  font-size: 16px;
-}
-
-.login-box button {
-  width: 100%;
-  padding: 14px;
-  background: #c4161c;
-  color: #fff;
-  border: none;
-  font-size: 18px;
-  border-radius: 10px;
-}
-
-/* ===== APP ===== */
-.container {
-  max-width: 520px;
-  margin: auto;
-  background: #fff;
+/* ===== APP CONTAINER ===== */
+.app {
+  max-width: 480px;
+  margin: 24px auto;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 40px rgba(0,0,0,.12);
   padding: 28px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.12);
-  display: none;
 }
 
+/* ===== HEADER ===== */
 .header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .header img {
-  height: 100px;
+  height: 90px;
+  margin-bottom: 12px;
 }
 
+.header h1 {
+  margin: 0;
+  font-size: 22px;
+  color: var(--lcr-red);
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* ===== FORM ===== */
 label {
-  font-weight: 600;
   display: block;
-  margin-top: 14px;
+  margin: 16px 0 6px;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 select, input {
   width: 100%;
   padding: 14px;
   font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  outline: none;
+}
+
+select:focus, input:focus {
+  border-color: var(--lcr-red);
+  box-shadow: 0 0 0 2px rgba(196,22,28,.15);
 }
 
 input[readonly] {
-  background: #eee;
+  background: #f3f4f6;
+  font-weight: 700;
 }
 
-button.save {
-  margin-top: 20px;
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ===== BUTTON ===== */
+button {
+  margin-top: 26px;
   width: 100%;
   padding: 16px;
-  background: #0a6cf1;
-  color: white;
   font-size: 18px;
+  font-weight: 800;
+  color: white;
+  background: linear-gradient(135deg,#c4161c,#a81217);
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== LOGIN ===== -->
-<div class="login-box" id="loginBox">
-  <h2>LCR Login</h2>
-  <input id="username" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <p id="loginMsg" style="color:red;text-align:center;"></p>
-</div>
+<div class="app">
 
-<!-- ===== APP ===== -->
-<div class="container" id="app">
+  <!-- HEADER -->
   <div class="header">
     <img src="https://th.bing.com/th/id/R.644c5e4755e06e580d08028ac71fd66f?rik=s5y%2b2sm0G3gxrA&riu=http%3a%2f%2fwww.chrisfritze.com%2fuploads%2f9%2f4%2f8%2f1%2f94817372%2flcr-logo_orig.jpg&ehk=oSunJQyAVlLmLmsDF2DCEBlJUkeJxg8qGCiCp6PKiPs%3d&risl=&pid=ImgRaw&r=0">
-    <h2 style="color:#c4161c;">Lao–China Railway</h2>
+    <h1>Lao–China Railway</h1>
   </div>
 
+  <!-- FORM -->
   <label>ID</label>
   <select id="id">
     <option>D87</option>
@@ -123,18 +138,32 @@ button.save {
     <option value="孩">孩 (Child)</option>
   </select>
 
-  <label>From</label>
-  <select id="from" onchange="updatePrice()">
-    <option>VTE</option><option>VV</option><option>LPB</option><option>MX</option><option>BT</option>
-  </select>
+  <div class="grid">
+    <div>
+      <label>From</label>
+      <select id="from" onchange="updatePrice()">
+        <option>VTE</option>
+        <option>VV</option>
+        <option>LPB</option>
+        <option>MX</option>
+        <option>BT</option>
+      </select>
+    </div>
 
-  <label>To</label>
-  <select id="to" onchange="updatePrice()">
-    <option>VV</option><option>VTE</option><option>LPB</option><option>MX</option><option>BT</option>
-  </select>
+    <div>
+      <label>To</label>
+      <select id="to" onchange="updatePrice()">
+        <option>VV</option>
+        <option>VTE</option>
+        <option>LPB</option>
+        <option>MX</option>
+        <option>BT</option>
+      </select>
+    </div>
+  </div>
 
   <label>Quantity</label>
-  <input id="quantity" type="number" value="1" min="1" oninput="updatePrice()">
+  <input type="number" id="quantity" value="1" min="1" oninput="updatePrice()">
 
   <label>Price</label>
   <input id="price" readonly>
@@ -142,31 +171,15 @@ button.save {
   <label>Total</label>
   <input id="total" readonly>
 
-  <button class="save" onclick="saveData()">Save</button>
+  <button onclick="saveData()">Save</button>
+
+  <div class="footer">
+    © Lao–China Railway • Internal System
+  </div>
 </div>
 
 <script>
-/* 🔴 CHANGE THIS */
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzUfUCNxnNiryi7D2ITazJGRRzeEgPee3XlLMQZ6Gi-P9igLisNWigjnvHWQaOTGg/exec";
-
-/* ===== LOGIN (DEMO) ===== */
-function login() {
-  const u = document.getElementById("username").value;
-  const p = document.getElementById("password").value;
-
-  if (u === "admin" && p === "1234") {
-    localStorage.setItem("login", "yes");
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("app").style.display = "block";
-  } else {
-    document.getElementById("loginMsg").innerText = "Wrong login";
-  }
-}
-
-if (localStorage.getItem("login") === "yes") {
-  document.getElementById("loginBox").style.display = "none";
-  document.getElementById("app").style.display = "block";
-}
 
 /* ===== PRICE TABLE ===== */
 const priceTable = [
@@ -231,29 +244,36 @@ const priceTable = [
 
 ];
 
-function updatePrice() {
-  const f = from.value, t = to.value, p = passenger.value, q = +quantity.value;
-  const found = priceTable.find(x => x.from===f && x.to===t && x.type===p);
-  if (!found) return price.value = total.value = "";
-  price.value = found.price.toLocaleString();
-  total.value = (found.price*q).toLocaleString();
+
+function updatePrice(){
+  const f = from.value, t = to.value, p = passenger.value;
+  const q = Number(quantity.value || 0);
+
+  const r = priceTable.find(x => x.f===f && x.t===t && x.p===p);
+  if(!r){ price.value=""; total.value=""; return; }
+
+  price.value = r.v.toLocaleString();
+  total.value = (r.v * q).toLocaleString();
 }
 
-async function saveData() {
+async function saveData(){
   await fetch(WEB_APP_URL,{
     method:"POST",
-    body:JSON.stringify({
+    body: JSON.stringify({
       id:id.value,
       passengerType:passenger.value,
       from:from.value,
       to:to.value,
       quantity:quantity.value,
-      price:+price.value.replace(/,/g,""),
-      total:+total.value.replace(/,/g,"")
+      price:Number(price.value.replace(/,/g,"")),
+      total:Number(total.value.replace(/,/g,""))
     })
   });
+
+  quantity.value = 1;
+  price.value = "";
+  total.value = "";
   alert("Saved");
-  quantity.value=1; price.value=""; total.value="";
 }
 </script>
 
