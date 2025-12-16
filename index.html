@@ -260,40 +260,6 @@ function updatePrice(){
 </script>
 
 
-function updatePrice(){
-  const r = priceTable.find(x =>
-    x.from===from.value &&
-    x.to===to.value &&
-    x.type===passenger.value
-  );
-  if(!r){ price.value=""; total.value=""; return; }
-  price.value = r.price.toLocaleString();
-  total.value = (r.price * quantity.value).toLocaleString();
-}
-
-async function saveData(){
-  const payload = {
-    id: id.value,
-    passenger: passenger.value,
-    from: from.value,
-    to: to.value,
-    quantity: Number(quantity.value),
-    price: Number(price.value.replace(/,/g,"")),
-    total: Number(total.value.replace(/,/g,""))
-  };
-
-  const res = await fetch(WEB_APP_URL,{
-    method:"POST",
-    body: JSON.stringify(payload)
-  });
-
-  alert("Saved to Google Sheet ✅");
-  quantity.value = 1;
-  price.value = "";
-  total.value = "";
-}
-</script>
-
 </body>
 </html>
 
