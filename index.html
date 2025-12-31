@@ -178,79 +178,60 @@ button:active{transform:scale(.98)}
   
 <!-- REPORT -->
 <div class="card hidden" id="reportBox">
-  <h2 style="text-align:center;color:#c4161c">📊 Daily Sales Report</h2>
+  <div class="header">
+    <h1>📊 Daily Sales Report</h1>
+  </div>
+
   <button onclick="loadReport()">Load Today Report</button>
 
-  <table style="width:100%;margin-top:16px;border-collapse:collapse">
+  <table id="reportTable" style="width:100%;margin-top:16px;border-collapse:collapse">
     <thead>
-      <tr>
+      <tr style="background:#f3f4f6">
         <th>Route</th>
         <th>Passenger</th>
         <th>Tickets</th>
         <th>Total (LAK)</th>
       </tr>
     </thead>
-    <tbody id="reportBody"></tbody>
+    <tbody></tbody>
   </table>
+
+  <p id="bestRoute" style="margin-top:14px;font-weight:800;color:#c4161c"></p>
 </div>
- 
-</table>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwkwFyOINA0QXpVBbMQ58th3DjSf0pX8_ia9bbby9X6xAKI5G-9T-uOy9YLZlilZXCJ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPGxJxcmQ1h7kDLCJ4bmX-NLcPNGrnjfFPg9WJoIPM3RfsjrxKfYsJmLKFDPVoXI8KoQ/exec";
 
-/* ================= LOGIN ================= */
-function login(){
-  if(user.value==="Admin" && pass.value==="1234"){
-    loginBox.classList.add("hidden");
-    app.classList.remove("hidden");
-    reportBox.classList.remove("hidden"); // SHOW report ONLY after login
-  } else {
-    loginMsg.innerText="Invalid login";
-  }
-}
-
-/* ================= PRICE ================= */
-// (KEEP YOUR priceTable & updatePrice EXACTLY AS IS)
-
-/* ================= SAVE ================= */
-async function saveData(){
-  const payload = {
-    id: id.value,
-    passenger: passenger.value,
-    from: from.value,
-    to: to.value,
-    quantity: Number(quantity.value),
-    price: Number(price.value.replace(/,/g,"")),
-    total: Number(total.value.replace(/,/g,""))
-  };
-
-  await fetch(WEB_APP_URL, {
-    method:"POST",
-    body: JSON.stringify(payload)
-  });
-
-  alert("Saved ✅");
-}
-
-/* ================= REPORT ================= */
 async function loadReport(){
-  const res = await fetch(WEB_APP_URL);
+  const res = await fetch(WEB_APP_URL + "?action=report");
   const data = await res.json();
 
-  const tbody = document.getElementById("reportBody");
+  const tbody = document.querySelector("#reportTable tbody");
   tbody.innerHTML = "";
+
+  let maxTickets = 0;
+  let topRoute = "";
 
   data.forEach(r=>{
     const tr = document.createElement("tr");
+
     tr.innerHTML = `
       <td>${r.route}</td>
       <td>${r.passenger}</td>
       <td>${r.tickets}</td>
-      <td>${r.amount.toLocaleString()}</td>
+      <td>${r.total.toLocaleString()}</td>
     `;
+
     tbody.appendChild(tr);
+
+    if(r.tickets > maxTickets){
+      maxTickets = r.tickets;
+      topRoute = r.route;
+    }
   });
+
+  document.getElementById("bestRoute").innerText =
+    "🔥 Most Sold Route Today: " + topRoute + " (" + maxTickets + " tickets)";
 }
  
 /* ================= LOGIN ================= */
