@@ -174,6 +174,8 @@ button:active{transform:scale(.98)}
  </div>
   </div>
   <hr style="margin:30px 0">
+  
+<button onclick="openReport()">📊 View Daily Report</button>
 
   
 <!-- REPORT -->
@@ -198,9 +200,52 @@ button:active{transform:scale(.98)}
 
   <p id="bestRoute" style="margin-top:14px;font-weight:800;color:#c4161c"></p>
 </div>
+function doGet(e){
+  if(e.parameter.action === "report"){
+    return getDailyReport();
+  }
+}
+
+function getDailyReport(){
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const data = sheet.getDataRange().getValues();
+  const today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "dd-MM-yyyy");
+
+  const map = {};
+
+  for(let i=1;i<data.length;i++){
+    const [date,id,passenger,from,to,qty,price,total] = data[i];
+    if(date !== today) continue;
+
+    const key = from + " - " + to + "|" + passenger;
+
+    if(!map[key]){
+      map[key] = {
+        route: from + " - " + to,
+        passenger: passenger,
+        tickets: 0,
+        total: 0
+      };
+    }
+
+    map[key].tickets += Number(qty);
+    map[key].total += Number(total);
+  }
+
+  return ContentService
+    .createTextOutput(JSON.stringify(Object.values(map)))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+  
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPGxJxcmQ1h7kDLCJ4bmX-NLcPNGrnjfFPg9WJoIPM3RfsjrxKfYsJmLKFDPVoXI8KoQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxUiOYbc16X6jgKQmkhq8YoyfNrdJRjuBO4hV_L3sQlLfuIn09K97F_zrurA7XU2vOG/exec";
+
+<script>
+function openReport(){
+  document.getElementById("reportBox").classList.remove("hidden");
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
 
 async function loadReport(){
   const res = await fetch(WEB_APP_URL + "?action=report");
@@ -214,14 +259,12 @@ async function loadReport(){
 
   data.forEach(r=>{
     const tr = document.createElement("tr");
-
     tr.innerHTML = `
       <td>${r.route}</td>
       <td>${r.passenger}</td>
       <td>${r.tickets}</td>
       <td>${r.total.toLocaleString()}</td>
     `;
-
     tbody.appendChild(tr);
 
     if(r.tickets > maxTickets){
@@ -233,12 +276,13 @@ async function loadReport(){
   document.getElementById("bestRoute").innerText =
     "🔥 Most Sold Route Today: " + topRoute + " (" + maxTickets + " tickets)";
 }
+
  
-/* ================= LOGIN ================= */
 function login(){
   if(user.value==="Admin" && pass.value==="1234"){
     loginBox.classList.add("hidden");
     app.classList.remove("hidden");
+    reportBox.classList.add("hidden"); // ensure hidden
   } else {
     loginMsg.innerText="Invalid login";
   }
