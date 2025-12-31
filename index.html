@@ -200,42 +200,6 @@ button:active{transform:scale(.98)}
 
   <p id="bestRoute" style="margin-top:14px;font-weight:800;color:#c4161c"></p>
 </div>
-function doGet(e){
-  if(e.parameter.action === "report"){
-    return getDailyReport();
-  }
-}
-
-function getDailyReport(){
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const data = sheet.getDataRange().getValues();
-  const today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "dd-MM-yyyy");
-
-  const map = {};
-
-  for(let i=1;i<data.length;i++){
-    const [date,id,passenger,from,to,qty,price,total] = data[i];
-    if(date !== today) continue;
-
-    const key = from + " - " + to + "|" + passenger;
-
-    if(!map[key]){
-      map[key] = {
-        route: from + " - " + to,
-        passenger: passenger,
-        tickets: 0,
-        total: 0
-      };
-    }
-
-    map[key].tickets += Number(qty);
-    map[key].total += Number(total);
-  }
-
-  return ContentService
-    .createTextOutput(JSON.stringify(Object.values(map)))
-    .setMimeType(ContentService.MimeType.JSON);
-}
   
 
 <script>
